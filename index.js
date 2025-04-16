@@ -6,20 +6,28 @@ const app = express()
 
 const PORT = 3000;
 
-app.use('/welcome', (req, res, next) => {
-  console.log('A new request recevied' + Date.now())
-  next()
+// set ejs in view engine
+app.set('view engine', 'ejs');
+
+app.get('/', (req, res) => {
+  const userName = "sai surya"
+  res.render('index', { userName })
 })
 
-app.get('/error', (req, res) => {
-  throw new Error('this is an Error') 
-})
+// app.use('/welcome', (req, res, next) => {
+//   console.log('A new request recevied' + Date.now())
+//   next()
+// })
 
-app.use((err, req, res, next)=>{
-  console.error(err.message);
-  res.send('internal server Error')
-  
-})
+// app.get('/error', (req, res) => {
+//   throw new Error('this is an Error') 
+// })
+
+// app.use((err, req, res, next)=>{
+//   console.error(err.message);
+//   res.send('internal server Error')
+
+// })
 
 // app.get('/welcome', (req, res) => {
 //   res.send('Welcome to express app');
