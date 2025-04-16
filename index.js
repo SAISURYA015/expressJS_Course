@@ -6,13 +6,38 @@ const app = express()
 
 const PORT = 3000;
 
-// set ejs in view engine
-app.set('view engine', 'ejs');
+app.use('/public', express.static('public'))
+app.use('/images', express.static('images'))
 
 app.get('/', (req, res) => {
-  const userName = "sai surya"
-  res.render('index', { userName })
+  res.send('Hello Express')
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// set ejs in view engine
+// app.set('view engine', 'ejs');
+
+// app.get('/', (req, res) => {
+//   const userName = "sai surya"
+//   res.render('index', { userName })
+// })
 
 // app.use('/welcome', (req, res, next) => {
 //   console.log('A new request recevied' + Date.now())
