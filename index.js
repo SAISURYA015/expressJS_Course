@@ -1,32 +1,21 @@
 import express from "express";
-import router from "./routes.js";
-import multer from "multer";
-import { storage } from "./config/multer.js";
-
+import mongoose from "mongoose";
 
 const app = express()
-const upload = multer({ 
-  storage,
-  limits: {
-    fileSize: 1024000
-  } 
-});
-app.use(express.json())
-
 const PORT = 3000;
 
-app.use(express.urlencoded({ extended: true }))
-app.use(upload.single('image'))
+const MONGODB_URI = 'connection string from mongodb'
 
+mongoose.connect(MONGODB_URI).then(() => {
+  console.log('MongoDB connected')
+})
 
-app.get('/', (req, res) => {
+app.get('/', (req, res) => {  
   res.send('Hello Express')
 })
 
-app.post('/form', (req, res) => {
-  console.log(req.body);
-  console.log(req.file);
-  res.send('Form Received')
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`)
 })
 
 
@@ -40,8 +29,33 @@ app.post('/form', (req, res) => {
 
 
 
+// import router from "./routes.js";
+// import multer from "multer";
+// import { storage } from "./config/multer.js";
 
 
+
+// const upload = multer({
+//   storage,
+//   limits: {
+//     fileSize: 1024000
+//   }
+// });
+// app.use(express.json())
+
+
+
+// app.use(express.urlencoded({ extended: true }))
+// app.use(upload.single('image'))
+
+
+
+
+// app.post('/form', (req, res) => {
+//   console.log(req.body);
+//   console.log(req.file);
+//   res.send('Form Received')
+// })
 
 // app.use('/public', express.static('public'))
 // app.use('/images', express.static('images'))
@@ -60,7 +74,7 @@ app.post('/form', (req, res) => {
 // })
 
 // app.get('/error', (req, res) => {
-//   throw new Error('this is an Error') 
+//   throw new Error('this is an Error')
 // })
 
 // app.use((err, req, res, next)=>{
@@ -95,10 +109,7 @@ app.post('/form', (req, res) => {
 //   })
 // })
 
-app.use('/user', router)
+// app.use('/user', router)
 
 
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`)
-})
